@@ -1,0 +1,109 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Minha Jornada
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+
+  <ion-card class="card-registro" *ngFor="let registro of registros">
+      
+      <ion-title class="titulo-registro">
+        {{ registro.titulo }} 
+      </ion-title>
+      
+      <div class="preview">
+        <p>{{ registro.descricao }}</p>
+      </div>
+
+      <div class="data_publicacao">
+        <p>Data de publicação: 
+          {{ registro.data | date:'dd/MM/yyyy' }}
+        </p>
+      </div>
+
+  </ion-card>
+  
+  <!--Icone do botão de incluir-->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        
+    <ion-fab-button (click)="abrirModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+      
+  </ion-fab>
+
+  <ion-modal [isOpen]="isModalOpen">
+    
+    <ng-template>
+      
+      <ion-header>
+
+        <ion-toolbar>
+
+          <ion-title>Novo Registro</ion-title>
+
+        </ion-toolbar>
+
+      </ion-header>  
+
+      <ion-content class="ion-padding">
+
+        <!--CAMPO TÍTULO-->
+        <ion-input
+          fill="outline"
+          label="Título"
+          labelPlacement="stacked"
+          placeholder="Digite o título"
+          class="campo-titulo"
+          [(ngModel)]="titulo">
+        </ion-input>
+
+        <!--CAMPO DESCRIÇÃO-->
+        <ion-textarea
+          fill="outline"
+          label="Descrição"
+          labelPlacement="stacked"
+          placeholder="Escreva seu dia..."
+          class="campo-descricao"
+          [(ngModel)]="descricao">
+        </ion-textarea>
+
+        <!--LABEL DA DATA DE INCLUSÃO-->
+        <label class="label_data_inclusao">
+          Selecione uma data: 
+        </label>
+
+        <!--CAMPO DATA DE INCLUSÃO-->
+        <input 
+          type="date" 
+          class="campo_data" 
+          [(ngModel)]="data">
+
+          <!-- TESTE DE PERSISTÊNCIA DOS DADOS
+          <p>{{ titulo }}</p>
+          <p>{{ descricao }}</p>
+          <p>{{ data | date:'dd/MM/yyyy' }}</p>
+          -->
+
+        <div class="botoes">
+
+        <ion-button (click)="salvarRegistro()">
+          Salvar
+        </ion-button>
+
+        <ion-button fill="outline" (click)="fecharModal()">
+          Cancelar
+        </ion-button>
+
+      </div>
+
+      </ion-content>
+    </ng-template>
+
+  </ion-modal>
+  
+</ion-content>
