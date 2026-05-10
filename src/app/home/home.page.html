@@ -9,99 +9,165 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-card class="card-registro" *ngFor="let registro of registros">
+  <!-- HOME: CARD DO REGISTRO-->
+  <ion-card 
+    class="card-registro" 
+    *ngFor="let registro of registros; let i = index"
+    (click)="visualizarRegistro(registro)">
       
+    <!--(click)="visualizarRegistro(registro) -->
+
+      <!-- HOME: TÍTULO  -->
       <ion-title class="titulo-registro">
         {{ registro.titulo }} 
       </ion-title>
       
+      <!-- HOME: DESCRIÇÃO -->
       <div class="preview">
-        <p>{{ registro.descricao }}</p>
+        <p class="preview-texto">
+          {{ registro.descricao }}
+        </p>
       </div>
 
+      <!-- HOME - DATA DE PUBLICAÇÃO-->
       <div class="data_publicacao">
         <p>Data de publicação: 
           {{ registro.data | date:'dd/MM/yyyy' }}
         </p>
       </div>
 
+      <!-- HOME: BOTÃO EDITAR-->
+      <ion-button
+        fill="clear"
+        size="small" 
+        (click)="editarRegistro(i);
+        $event.stopPropagation()">
+         <ion-icon name="create"></ion-icon>
+      </ion-button>
+
+      <!-- HOME: BOTÃO EXCLUIR-->
+      <ion-button
+          fill="clear"
+          color="danger"
+          size="small"
+          (click)="deletarRegistro(i); $event.stopPropagation()">
+          <ion-icon name="trash"></ion-icon>
+      </ion-button>
+      
   </ion-card>
   
-  <!--Icone do botão de incluir-->
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-        
-    <ion-fab-button (click)="abrirModal()">
+  <!-- HOME: ICONE DO BOTÃO INCLUIR-->
+  <ion-fab 
+    slot="fixed" 
+    vertical="bottom" 
+    horizontal="end">
+    <ion-fab-button (click)="novoRegistro()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
       
   </ion-fab>
 
+  <!-- MODAL -->
   <ion-modal [isOpen]="isModalOpen">
     
     <ng-template>
       
+      <!-- MODAL: TÍTULO -->
       <ion-header>
-
         <ion-toolbar>
-
-          <ion-title>Novo Registro</ion-title>
-
+          <ion-title> 
+            {{ modoVisualizacao ? titulo : 'Novo Registro' }}
+          </ion-title>
         </ion-toolbar>
-
       </ion-header>  
 
+      <!-- MODAL: LAYOUT -->
       <ion-content class="ion-padding">
 
-        <!--CAMPO TÍTULO-->
+        <!-- MODAL: CAMPO TÍTULO -->
         <ion-input
+          class="campo-titulo"
+          [class.campo-invalido]="erroTitulo"
+          *ngIf="!modoVisualizacao"
           fill="outline"
           label="Título"
           labelPlacement="stacked"
           placeholder="Digite o título"
-          class="campo-titulo"
-          [(ngModel)]="titulo">
+          [(ngModel)]="titulo"
+          (ionInput)="erroTitulo = false"
+          [readonly]="modoVisualizacao">
         </ion-input>
 
-        <!--CAMPO DESCRIÇÃO-->
+        <!-- TÍTULO: MENSAGEM DE CAMPO OBRIGATÓRIO -->
+        <p *ngIf="erroTitulo" class="mensagem-erro">
+          Título é obrigatório
+        </p>
+
+        <!-- MODAL: CAMPO DESCRIÇÃO -->
         <ion-textarea
+          class="campo-descricao"
+          [class.campo-invalido]="erroDescricao"
+          *ngIf="!modoVisualizacao"
           fill="outline"
           label="Descrição"
           labelPlacement="stacked"
           placeholder="Escreva seu dia..."
-          class="campo-descricao"
-          [(ngModel)]="descricao">
+          rows="6"
+          autoGrow="true"
+          [(ngModel)]="descricao"
+          (ionInput)="erroDescricao = false"
+          [readonly]="modoVisualizacao">
         </ion-textarea>
 
-        <!--LABEL DA DATA DE INCLUSÃO-->
+        <!-- DESCRIÇÃO: MENSAGEM DE CAMPO OBRIGATÓRIO -->
+        <p *ngIf="erroDescricao" class="mensagem-erro">
+          Descrição é obrigatória
+        </p>
+
+        <!-- DESCRIÇÃO: MODO VISUALIZAÇÃO -->
+        <p 
+        class="texto-visualizacao" 
+        *ngIf="modoVisualizacao">
+            {{ descricao }}
+        </p>
+
+        <!-- MODAL: LABEL DO CAMPO DATA -->
         <label class="label_data_inclusao">
-          Selecione uma data: 
+           {{ modoVisualizacao ? '' : 'Selecione uma data:' }} 
         </label>
 
-        <!--CAMPO DATA DE INCLUSÃO-->
+        <!-- MODAL: CAMPO DATA -->
         <input 
-          type="date" 
-          class="campo_data" 
-          [(ngModel)]="data">
+          class="campo_data"
+          *ngIf="!modoVisualizacao"
+          [class.campo-invalido]="erroData"
+          type="date"  
+          [(ngModel)]="data"
+          (ionInput)="erroData = false"
+          [disabled]="modoVisualizacao">
 
-          <!-- TESTE DE PERSISTÊNCIA DOS DADOS
-          <p>{{ titulo }}</p>
-          <p>{{ descricao }}</p>
-          <p>{{ data | date:'dd/MM/yyyy' }}</p>
-          -->
+        <!-- DATA: MENSAGEM DE CAMPO OBRIGATÓRIO -->
+        <p *ngIf="erroData" class="mensagem-erro">
+          Data é obrigatória
+        </p>
 
+        <!--MODAL: BOTÕES--> 
         <div class="botoes">
 
-        <ion-button (click)="salvarRegistro()">
-          Salvar
-        </ion-button>
+          <!-- BOTÕES: SALVAR -->
+          <ion-button *ngIf="!modoVisualizacao" (click)="salvarRegistro()">
+            Salvar
+          </ion-button>
 
-        <ion-button fill="outline" (click)="fecharModal()">
-          Cancelar
-        </ion-button>
+          <!-- BOTÕES: CANCELAR -->
+          <ion-button fill="outline" (click)="fecharModal()">
+            {{ modoVisualizacao ? 'Fechar' : 'Cancelar' }}
+          </ion-button>
 
-      </div>
+        </div>
 
       </ion-content>
+
     </ng-template>
 
   </ion-modal>
