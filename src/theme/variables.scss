@@ -1,2 +1,59 @@
 // For information on how to create your own theme, please refer to:
 // https://ionicframework.com/docs/theming/
+
+:root {
+
+  --ion-color-roxo: #7c3aed;
+
+  --ion-color-roxo-rgb: 139, 92, 246;
+
+  --ion-color-roxo-contrast: #ffffff;
+
+  --ion-color-roxo-contrast-rgb: 255, 255, 255;
+
+  --ion-color-roxo-shade: #7c3aed;
+
+  --ion-color-roxo-tint: #a78bfa;
+
+}
+
+.ion-color-roxo {
+
+  --ion-color-base: var(--ion-color-roxo);
+
+  --ion-color-base-rgb: var(--ion-color-roxo-rgb);
+
+  --ion-color-contrast: var(--ion-color-roxo-contrast);
+
+  --ion-color-contrast-rgb: var(--ion-color-roxo-contrast-rgb);
+
+  --ion-color-shade: var(--ion-color-roxo-shade);
+
+  --ion-color-tint: var(--ion-color-roxo-tint);
+
+}
+
+body.dark {
+
+  --ion-background-color: #180125;
+
+  --ion-text-color: #ffffff;
+
+  --ion-color-primary: #2600ff;
+
+}
+
+
+body.dark .data_publicacao p {
+  color: #e6dede;
+}
+
+body.dark .titulo-registro {
+  color: #ffffff;
+}
+
+body.dark .card-registro {
+
+  background: #3b2f5a;
+
+}

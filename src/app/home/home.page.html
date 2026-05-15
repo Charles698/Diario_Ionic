@@ -1,8 +1,31 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Minha Jornada
-    </ion-title>
+    <div class="header-app">
+
+      <img
+        src="assets/logo.png"
+        alt="Logo"
+        class="logo-app">
+    
+        <ion-title>
+          Minha Jornada
+        </ion-title>
+
+    </div>
+     
+    <ion-buttons slot="end">
+
+      <ion-button
+        fill="clear"
+        (click)="alterarTema()">
+
+        <ion-icon
+          [name]="darkMode ? 'sunny' : 'moon'">
+        </ion-icon>
+
+      </ion-button>
+
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -38,6 +61,7 @@
 
       <!-- HOME: BOTÃO EDITAR-->
       <ion-button
+        color="roxo"
         fill="clear"
         size="small" 
         (click)="editarRegistro(i);
@@ -61,7 +85,7 @@
     slot="fixed" 
     vertical="bottom" 
     horizontal="end">
-    <ion-fab-button (click)="novoRegistro()">
+    <ion-fab-button color="roxo" (click)="novoRegistro()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
       
@@ -73,10 +97,10 @@
     <ng-template>
       
       <!-- MODAL: TÍTULO -->
-      <ion-header>
+      <ion-header *ngIf="indiceEditando == null || modoVisualizacao">
         <ion-toolbar>
           <ion-title> 
-            {{ modoVisualizacao ? titulo : 'Novo Registro' }}
+            {{ titulo ? titulo : 'Novo Registro' }}
           </ion-title>
         </ion-toolbar>
       </ion-header>  
@@ -155,12 +179,12 @@
         <div class="botoes">
 
           <!-- BOTÕES: SALVAR -->
-          <ion-button *ngIf="!modoVisualizacao" (click)="salvarRegistro()">
+          <ion-button color="roxo" *ngIf="!modoVisualizacao" (click)="salvarRegistro()">
             Salvar
           </ion-button>
 
           <!-- BOTÕES: CANCELAR -->
-          <ion-button fill="outline" (click)="fecharModal()">
+          <ion-button color="roxo" fill="outline" (click)="fecharModal()">
             {{ modoVisualizacao ? 'Fechar' : 'Cancelar' }}
           </ion-button>
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
 import {IonCard, IonFab, IonFabButton, IonIcon, IonModal, IonButton, IonInput, IonTextarea, IonButtons} from '@ionic/angular/standalone';
-import { add, create, trash } from 'ionicons/icons';
+import { add, create, trash, moon, sunny } from 'ionicons/icons';
 import {addIcons} from 'ionicons';
 import { FormsModule } from '@angular/forms';
 import { DatePipe, CommonModule } from '@angular/common';
@@ -50,19 +50,33 @@ export class HomePage {
   erroTitulo = false;
   erroDescricao = false;
   erroData = false;
+  
+  darkMode = false;
 
   constructor() {
 
     addIcons({
       add,
       create,
-      trash
+      trash,
+      moon,
+      sunny
     });
 
     const dados = localStorage.getItem('registros');
 
     if(dados) {
       this.registros = JSON.parse(dados);
+    }
+
+    const temaSalvo = localStorage.getItem('darkMode');
+
+    if (temaSalvo) {
+    this.darkMode = JSON.parse(temaSalvo);
+      
+      if (this.darkMode) {
+        document.body.classList.add('dark');
+      }
     }
   }
 
@@ -184,4 +198,13 @@ export class HomePage {
 
   }
 
+  alterarTema() {
+    this.darkMode = !this.darkMode;
+    document.body.classList.toggle('dark');
+    localStorage.setItem(
+      'darkMode',
+      JSON.stringify(this.darkMode)
+    );
+  }
+ 
 }
