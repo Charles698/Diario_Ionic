@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="conteudo-principal">
   <ion-toolbar>
     <div class="header-app">
 
@@ -64,8 +64,7 @@
         color="roxo"
         fill="clear"
         size="small" 
-        (click)="editarRegistro(i);
-        $event.stopPropagation()">
+        (click)="editarRegistro(i); $event.stopPropagation()">
          <ion-icon name="create"></ion-icon>
       </ion-button>
 
@@ -84,7 +83,8 @@
   <ion-fab 
     slot="fixed" 
     vertical="bottom" 
-    horizontal="end">
+    horizontal="end"
+    edge="false">
     <ion-fab-button color="roxo" (click)="novoRegistro()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
@@ -92,7 +92,7 @@
   </ion-fab>
 
   <!-- MODAL -->
-  <ion-modal [isOpen]="isModalOpen">
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="fecharModal()">
     
     <ng-template>
       
@@ -106,7 +106,7 @@
       </ion-header>  
 
       <!-- MODAL: LAYOUT -->
-      <ion-content class="ion-padding">
+      <ion-content class="ion-padding modal-conteudo">
 
         <!-- MODAL: CAMPO TÍTULO -->
         <ion-input
@@ -167,7 +167,7 @@
           [class.campo-invalido]="erroData"
           type="date"  
           [(ngModel)]="data"
-          (ionInput)="erroData = false"
+          (input)="erroData = false"
           [disabled]="modoVisualizacao">
 
         <!-- DATA: MENSAGEM DE CAMPO OBRIGATÓRIO -->

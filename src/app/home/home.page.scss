@@ -4,6 +4,14 @@ ion-toolbar {
 
 }
 
+ion-fab {
+  margin-bottom: 20px;
+}
+
+.conteudo-principal {
+  --padding-bottom: 80px;
+}
+
 .titulo-registro {
   font-size: 22px;
   font-weight: bold;
@@ -26,29 +34,18 @@ ion-toolbar {
 }
 
 .preview-texto {
-  
   overflow: hidden;
-
   display: -webkit-box;
-
   -webkit-line-clamp: 2;
-
   -webkit-box-orient: vertical;
-
 }
 
 .texto-visualizacao {
-
   font-size: 20px;
-
   line-height: 1.6;
-
   white-space: pre-line;
-
   margin-top: 20px;
-
 }
-
 
 // MODAL - NOVO REGISTRO
 
@@ -66,17 +63,14 @@ ion-toolbar {
 }
 
 .campo_data {
-  width: 22%;
-
+  width: 23%;
+  min-width: 180px;
+  max-width: 290px;
   border: 1px solid #ccc;
   border-radius: 10px;
-
   color: black;
-
   font-size: 15px;
-
   color-scheme: light;
-
   margin-top: 20px;
 }
 
@@ -104,43 +98,13 @@ ion-toolbar {
 }
 
 .header-app {
-
   display: flex;
-
   align-items: center;
-
   gap: 10px;
 
 }
 
 .logo-app {
-
   width: 40px;
-
   height: 40px;
-
 }
-
-
-
-/*
-.header-app {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 10px;
-
-}
-
-.header-app img {
-
-  width: 35px;
-
-  height: 35px;
-
-  border-radius: 10px;
-
-}
-  */
